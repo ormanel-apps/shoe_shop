@@ -17,11 +17,7 @@ async function main() {
   // populateDb();
 
   const schema = await buildSchema({
-    resolvers: [
-      ProductResolver,
-      FindManyProductsResolver,
-      GroupByProductsResolver,
-    ],
+    resolvers: [ProductResolver, FindManyProductsResolver],
     // authChecker: authChecker,
   });
 

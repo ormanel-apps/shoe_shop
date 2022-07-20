@@ -6,21 +6,24 @@ const client = new PrismaClient();
 
 export const populateDb = async () => {
   fs.readFile(
-    "/home/abel/Desktop/_dev/personal/shoe_store/api/src/_dev/dataset.json",
+    "/home/abel/Downloads/amazon_uk_shoes_dataset.json",
     "utf8",
     async (err, data) => {
       if (err) {
         console.log(err);
         return;
       }
-      const dataset = JSON.parse(data);
-      const _all = take(shuffle(dataset), 500).map((item) => ({
-        name: item["Product Name"],
-        description: item["Description"],
-        price: item["Sale Price"],
-        images: JSON.stringify(item["Images"]),
-        brand: item["Brand"],
-        discount: item["Discount"],
+      const dataset: [] = JSON.parse(data);
+      const _all = take(
+        shuffle(dataset.filter((e) => e["price"] != null)),
+        500
+      ).map((item) => ({
+        name: item["title"],
+        details: item["product_details"],
+        price: item["price"],
+        images: JSON.stringify(item["images_list"]),
+        brand: item["brand"],
+        features: JSON.stringify(item["features"]),
       }));
       for (let i = 0; i < _all.length; i++) {
         await client.products.create({
@@ -31,3 +34,5 @@ export const populateDb = async () => {
     }
   );
 };
+
+populateDb();

@@ -15,11 +15,11 @@ datasource db {
 }
 
 model Products {
-  id          String @id @default(cuid())
-  name        String
-  description String
-  brand       String
-  discount    Int
-  price       Int
-  images      String
+  id       String  @id @default(cuid())
+  name     String
+  details  String?
+  brand    String
+  price    String
+  images   String
+  features String?
 }

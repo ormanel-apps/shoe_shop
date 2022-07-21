@@ -10,16 +10,16 @@ generator typegraphql {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Products {
-  id       String  @id @default(cuid())
-  name     String
-  details  String?
+  id       String @id @default(cuid())
+  name     String @db.LongText()
+  details  Json?
   brand    String
   price    String
-  images   String
-  features String?
+  images   Json?
+  features Json?
 }
